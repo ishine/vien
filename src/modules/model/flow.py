@@ -48,7 +48,7 @@ class AffineCoupling(nn.Module):
 
         self.start = torch.nn.utils.weight_norm(nn.Conv1d(in_channels // 2, channels, 1))
         self.net = WaveNet(channels, kernel_size, num_layers, gin_channels=gin_channels, dropout=dropout)
-        self.end = nn.Conv1d(channels, in_channels, 1)
+        self.end = nn.Conv1d(channels, in_channels // 2, 1)
         self.end.weight.data.zero_()
         self.end.bias.data.zero_()
 
