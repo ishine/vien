@@ -96,7 +96,7 @@ class TTSModel(nn.Module):
             energy=energy_loss
         )
 
-        z_slice, ids_slice = rand_slice_segments(x, y_length, self.segment_size)
+        z_slice, ids_slice = rand_slice_segments(z_p, y_length, self.segment_size)
         o = self.generator(z_slice)
 
         return o, ids_slice, loss_dict
