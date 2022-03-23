@@ -131,7 +131,7 @@ class Trainer(TrainerBase):
             sche_g.step()
         return dict(
             d=loss_d,
-            g=loss_g,
+            g_gan=loss_gen,
             mel=loss_mel,
             duration=loss_dict['duration'],
             pitch=loss_dict['pitch']
