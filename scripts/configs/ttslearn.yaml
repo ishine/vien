@@ -12,6 +12,8 @@ preprocess:
   output_dir: ../dataset/${mode}
   orig_sr: 48000
   new_sr: 24000
+  spec: ${spec}
+  mel: ${mel}
 
 spec:
   n_fft: 1024
