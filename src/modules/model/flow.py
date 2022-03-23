@@ -5,10 +5,10 @@ from .layers import WaveNet
 
 
 class Flow(nn.Module):
-    def __init__(self, in_channels, channels, kernel_size, num_layers, n_flows):
+    def __init__(self, in_channels, channels, kernel_size, num_layers, num_flows):
         super(Flow, self).__init__()
         self.flows = nn.ModuleList()
-        for i in range(n_flows):
+        for i in range(num_flows):
             self.flows.append(AffineCoupling(in_channels, channels, kernel_size, num_layers))
             self.flows.append(Flip())
 
