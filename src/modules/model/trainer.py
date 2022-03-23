@@ -16,7 +16,6 @@ from ..common.trainer import TrainerBase
 from ..common.loggers.csv import CSVLogger
 from ..common.utils import Tracker, seed_everything
 from ..common.datasets import Dataset
-from ..common.schedulers import NoamLR
 from ..common.transforms import MelSpectrogram
 
 
