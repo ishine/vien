@@ -74,7 +74,7 @@ class TTSModel(nn.Module):
             energy,
             path
         )
-        x = self.stat_proj(x) * x_mask
+        x = self.stat_proj(x) * y_mask
         m_p, logs_p = torch.chunk(x, 2, dim=1)
         z, mu_q, logs_q = self.posterior_encoder(spec, y_mask)
 
