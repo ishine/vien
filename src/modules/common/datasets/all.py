@@ -11,7 +11,7 @@ class AllDataset(Dataset):
     def __init__(self, params):
         super().__init__()
         self.data = list(sorted(Path(params.data_dir).glob('data_*.pt')))
-        self.stats = torch.load(f'{params.data_dir}/stats.pt')
+        self.stats = torch.load(f'{params.data_dir}/stat.pt')
         self.tokenizer = Tokenizer.from_config(params.tokenizer)
 
     def __len__(self):
