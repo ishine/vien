@@ -78,7 +78,7 @@ model:
 
   posterior_encoder:
     in_channels: ${model.n_spec}
-    channels: ${model.channels}
+    out_channels: ${model.channels}
     kernel_size: 5
     dilation_rate: 1
     num_layers: 16
