@@ -1,0 +1,100 @@
+name: conformer
+seed: 42
+mode: ttslearn
+output_dir: ./out
+
+preprocess:
+  mode: normal
+  tokenizer:
+    mode: ${mode}
+  wav_dir: /disk/fs1/Corpus/JSUT/jsut_ver1.1/basic5000/wav
+  label_dir: /disk/fs1/Corpus/JSUT/jsut-label/labels/basic5000
+  output_dir: ../dataset/${mode}
+  orig_sr: 48000
+  new_sr: 24000
+
+spec:
+  n_fft: 1024
+  win_length: 1024
+  hop_length: 256
+  pad: 384
+  center: false
+
+mel:
+  sample_rate: 24000
+  n_fft: 1024
+  win_length: 1024
+  hop_length: 256
+  f_min: 0
+  f_max: 8000
+  pad: 384
+  n_mels: 80
+  center: false
+
+train:
+  batch_size: 16
+  num_epochs: 3000
+  save_interval: 100
+  train_gan: 5
+
+data:
+  mode: all
+  data_dir: ../dataset/${mode}
+  valid_size: 100
+  tokenizer:
+    mode: ${mode}
+
+model:
+  n_mel: 80
+  n_spec: 513
+  channels: 192
+  segment_size: 8192
+  mel_segment: 32
+
+  embedding:
+    mode: ${mode}
+    n_phoneme: 52
+    channels: ${model.channels}
+
+  encoder:
+    channels: ${model.channels}
+    n_heads: 2
+    n_layers: 6
+    dropout: 0.1
+
+  variance_adopter:
+    in_channels: ${model.channels}
+    channels: 256
+    dropout: 0.1
+
+  flow:
+    in_channels: ${model.channels}
+    channels: ${model.channels}
+    kernel_size: 5
+    num_flows: 6
+    num_layers: 4
+
+  posterior_encoder:
+    in_channels: ${model.n_spec}
+    channels: ${model.channels}
+    kernel_size: 5
+    dilation_rate: 1
+    num_layers: 16
+
+  generator:
+    initial_channel: 80
+    resblock_kernel_sizes: [3, 7, 11]
+    resblock_dilation_sizes: [[1,3,5], [1,3,5], [1,3,5]]
+    upsample_rates: [8, 8, 2, 2]
+    upsample_initial_channel: 512
+    upsample_kernel_sizes: [16, 16, 4, 4]
+
+optimizer:
+  lr: 1.0
+  betas: [0.8, 0.99]
+
+scheduler:
+  mode: noam
+  warmup_steps: 4000
+  channels: ${model.channels}
+
