@@ -65,7 +65,7 @@ model:
     dropout: 0.1
 
   variance_adopter:
-    in_channels: ${model.channels}
+    in_channels: 384
     channels: 256
     dropout: 0.1
 
