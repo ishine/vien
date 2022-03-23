@@ -92,11 +92,9 @@ model:
     upsample_kernel_sizes: [16, 16, 4, 4]
 
 optimizer:
-  lr: 1.0
+  lr: 0.0002
   betas: [0.8, 0.99]
 
 scheduler:
-  mode: noam
-  warmup_steps: 4000
-  channels: ${model.channels}
+  gamma: 0.999875
 

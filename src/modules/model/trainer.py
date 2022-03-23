@@ -1,9 +1,10 @@
 from pathlib import Path
 from omegaconf import OmegaConf
+from tqdm import tqdm
 
 import torch
 import torch.nn.functional as F
-from tqdm import tqdm
+from torch.optim.lr_scheduler import ExponentialLR
 from torch.utils.data import Subset, DataLoader
 from torch.utils.tensorboard import SummaryWriter
 
@@ -57,8 +58,8 @@ class Trainer(TrainerBase):
             opt_g.load_state_dict(d['opt_g'])
             opt_d.load_state_dict(d['opt_d'])
 
-        sche_g = NoamLR(opt_g, **self.config.scheduler, last_epoch=start_epoch-1)
-        sche_d = NoamLR(opt_d, **self.config.scheduler, last_epoch=start_epoch-1)
+        sche_g = ExponentialLR(opt_g, **self.config.scheduler, last_epoch=start_epoch-1)
+        sche_d = ExponentialLR(opt_d, **self.config.scheduler, last_epoch=start_epoch-1)
 
         for e in range(start_epoch, self.config.train.num_epochs):
             g.train()
