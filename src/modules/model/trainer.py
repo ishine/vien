@@ -104,7 +104,7 @@ class Trainer(TrainerBase):
             _,
             _
         ) = batch
-        y_hat, ids_slice, loss_dict = g.compute_loss(batch, only_mel=False)
+        y_hat, ids_slice, loss_dict = g.compute_loss(batch)
         y_mel = slice_segments(mel, ids_slice, segment_size=self.config.model.mel_segment)
         y_hat_mel = self.to_mel(y_hat.squeeze(1))
         y = slice_segments(wav, ids_slice, segment_size=self.config.model.segment_size)
