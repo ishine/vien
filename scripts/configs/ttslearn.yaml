@@ -67,7 +67,7 @@ model:
   variance_adopter:
     in_channels: ${model.channels}
     channels: 256
-    dropout: 0.1
+    dropout: 0.5
 
   flow:
     in_channels: ${model.channels}
