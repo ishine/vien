@@ -50,12 +50,12 @@ class Trainer(TrainerBase):
 
         start_epoch = 0
         if (self.output_dir / 'last.ckpt').exists():
-            d = torch.load(self.output_dir / 'last.ckpt')
-            start_epoch = d['epoch'] + 1
-            g.load_state_dict(d['g'])
-            d.load_state_dict(d['d'])
-            opt_g.load_state_dict(d['opt_g'])
-            opt_d.load_state_dict(d['opt_d'])
+            c = torch.load(self.output_dir / 'last.ckpt')
+            start_epoch = c['epoch'] + 1
+            g.load_state_dict(c['g'])
+            d.load_state_dict(c['d'])
+            opt_g.load_state_dict(c['opt_g'])
+            opt_d.load_state_dict(c['opt_d'])
 
         sche_g = ExponentialLR(opt_g, **self.config.scheduler, last_epoch=start_epoch-1)
         sche_d = ExponentialLR(opt_d, **self.config.scheduler, last_epoch=start_epoch-1)
